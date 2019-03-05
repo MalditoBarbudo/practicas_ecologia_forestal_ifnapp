@@ -1,0 +1,577 @@
+---
+title: "IFN app"
+subtitle: "Consulta Interactiva del 2º, 3º y 4º Inventario Forestal Nacional en Cataluña"
+author: ""
+date: "2019-03-07"
+output:
+  xaringan::moon_reader:
+    lib_dir: libs
+    css: [default, "custom.css", "custom-fonts.css"]
+    seal: false
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      slideNumberFormat: ""
+---
+
+class: title-slide
+
+# IFN app
+
+## Consulta Interactiva del 2º, 3º y 4º Inventario Forestal Nacional en Cataluña
+
+### Laboratori Forestal Catalá .font80[(2019-03-07)]
+
+---
+
+layout: true
+
+<div class="tweaked-header" style="background-image: url(img/logos.svg)"></div>
+
+<div class="my-footer"><span>Laboratori Forestal Catalá</span></div>
+
+---
+
+```{r setup, include=FALSE}
+options(htmltools.dir.version = FALSE)
+```
+
+
+# Actualización de los Inventarios Forestales
+
+```{r libraries_and_packages, echo=FALSE, results='hide'}
+suppressPackageStartupMessages(library(tidyverse))
+library(tidyNFI)
+library(gt)
+
+nfi_db <- nfi_connect()
+```
+
+  - Segundo Inventario Forestal Nacional (IFN2, `r tbl(nfi_db, 'PLOT_NFI_2_RESULTS') %>% collect() %>% nrow()` parcelas, realizado en 1990)  
+  - Tercer Inventario Forestal Nacional (IFN3, `r tbl(nfi_db, 'PLOT_NFI_3_RESULTS') %>% collect() %>% nrow()` parcelas, realizado en 2000)  
+  - Cuarto Inventario Forestal Nacional (IFN4, `r tbl(nfi_db, 'PLOT_NFI_4_RESULTS') %>% collect() %>% nrow()` parcelas, realizado en 2015)  
+
+Cada inventario se realiza cada 10-15 años sobre las mismas parcelas, si es posible. Hay
+**`r tbl(nfi_db, 'PLOTS') %>% filter(presence_NFI_2, presence_NFI_3, presence_NFI_4) %>% collect() %>% nrow()`**
+parcelas en común entre los tres inventarios,
+**`r tbl(nfi_db, 'PLOTS') %>% filter(presence_NFI_2, presence_NFI_3) %>% collect() %>% nrow()`**
+parcelas en común entre el IFN2 y el IFN3 y
+**`r tbl(nfi_db, 'PLOTS') %>% filter(presence_NFI_3, presence_NFI_4) %>% collect() %>% nrow()`**
+parcelas en común entre el IFN3 y el IFN4.
+
+
+La principal ventaja del remuestreo de las parcelas es que permite comparaciones pie a pie:
+
+  - pies supervivientes -> tasas de **crecimiento**
+  - pies incorporados -> tasas de **reclutamiento**
+  - pies aprovechados (desaparecidos) -> tasas de **explotación**
+  - pies muertos -> tasas de **mortalidad**
+
+---
+layout: false
+class: inverse
+
+.font200[Conceptos importantes]
+
+.font170[Presencia]
+
+---
+
+layout: true
+
+<div class="tweaked-header" style="background-image: url(img/logos.svg)"></div>
+
+<div class="my-footer"><span>Laboratori Forestal Catalá</span></div>
+
+---
+
+# Presencia
+
+## Variables de presencia
+
+1. **Densidad**: número de pies por hectárea  
+1. **Área basal**: m² por hectárea
+
+## Criterio de presencia
+
+1. **Porcentaje (de densidad o de área basal)**, presentes a nivel de parcela o desglosadas por
+   grupo funcional
+1. **Orden (en densidad o en área basal)**, presente únicamente a en la información desglosada
+   por grupo funcional
+   
+---
+
+# Presencia
+
+## Ejemplo desglosado por especie
+
+```{r ejemplo_presencia_desglosado_sp, echo=FALSE}
+tibble(
+  Especie = c('Quercus ilex', 'Pinus halepensis', 'Pinus nigra', 'Quercus humilis'),
+  area_basal_orden = c(2, 4, 1, 3),
+  densidad_orden = c(1, 2, 3, 4),
+  area_basal_porcentaje = c(30, 10, 35, 25),
+  densidad_porcentaje = c(60, 20, 15, 5),
+  area_basal = c(6,2,7,5),
+  densidad = c(600, 200, 150, 50)
+) %>%
+  gt(rowname_col = 'Especie') %>%
+  tab_header(
+    title = 'Criterios de presencia',
+    subtitle = ''
+  ) %>%
+  tab_spanner('Orden', c('area_basal_orden', 'densidad_orden')) %>%
+  tab_spanner('Porcentaje', c('area_basal_porcentaje', 'densidad_porcentaje')) %>%
+  tab_spanner('Valor grupo funcional', c('area_basal', 'densidad')) %>%
+  cols_label(
+    area_basal_orden = 'Área basal', densidad_orden = 'Densidad',
+    area_basal_porcentaje = 'Área basal', densidad_porcentaje = 'Densidad',
+    area_basal = 'Área basal', densidad = 'Densidad'
+  ) %>%
+  cols_align('center')
+```
+
+---
+
+# Presencia
+
+## Ejemplo desglosado por esclerófila, caducifolia y conífera
+
+```{r ejemplo_presencia_desglosado_dec, echo=FALSE}
+tibble(
+  Especie = c('Esclerófila', 'Conífera', 'Caducifolia'),
+  area_basal_orden = c(2, 1, 3),
+  densidad_orden = c(1, 2, 3),
+  area_basal_porcentaje = c(30, 45, 25),
+  densidad_porcentaje = c(60, 35, 5),
+  area_basal = c(6,9,5),
+  densidad = c(600, 350, 50)
+) %>%
+  gt(rowname_col = 'Especie') %>%
+  tab_header(
+    title = 'Criterios de presencia',
+    subtitle = ''
+  ) %>%
+  tab_spanner('Orden', c('area_basal_orden', 'densidad_orden')) %>%
+  tab_spanner('Porcentaje', c('area_basal_porcentaje', 'densidad_porcentaje')) %>%
+  tab_spanner('Valor grupo funcional', c('area_basal', 'densidad')) %>%
+  cols_label(
+    area_basal_orden = 'Área basal', densidad_orden = 'Densidad',
+    area_basal_porcentaje = 'Área basal', densidad_porcentaje = 'Densidad',
+    area_basal = 'Área basal', densidad = 'Densidad'
+  ) %>%
+  cols_align('center')
+```
+
+---
+
+# Presencia
+
+## Ejemplo información de parcela
+
+En este caso la información se resume en un único registro por parcela que muestra
+el porcentaje en base a cada tipo funcional dominante en ambas variables, área basal y
+densidad. Pero, y esto es importante, el resto de información dasométrica es para **todos**
+los pies mayores de la parcela.
+
+```{r ejemplo_presencia_parcela, echo=FALSE}
+tibble(
+  Parcela = 'P_xxxxx',
+  sp_dom_ab = 'Pinus nigra',
+  sp_dom_d = 'Quercus ilex',
+  sp_dom_ab_perc = 35,
+  sp_dom_d_perc = 60,
+  area_basal = 20,
+  densidad = 1000
+) %>%
+  gt(rowname_col = 'Parcela') %>%
+  tab_header(
+    title = 'Criterios de presencia',
+    subtitle = ''
+  ) %>%
+  tab_spanner('Especie dominante', c('sp_dom_ab', 'sp_dom_d')) %>%
+  tab_spanner('Porcentaje especie dominante', c('sp_dom_ab_perc', 'sp_dom_d_perc')) %>%
+  tab_spanner('Valor total parcela', c('area_basal', 'densidad')) %>%
+  cols_label(
+    sp_dom_ab = 'Área basal', sp_dom_d = 'Densidad',
+    sp_dom_ab_perc = 'Área basal', sp_dom_d_perc = 'Densidad',
+    area_basal = 'Área basal', densidad = 'Densidad'
+  ) %>%
+  cols_align('center')
+```
+
+---
+layout: false
+class: inverse
+
+.font200[Conceptos importantes]
+
+.font170[Cubicación]
+
+---
+
+layout: true
+
+<div class="tweaked-header" style="background-image: url(img/logos.svg)"></div>
+
+<div class="my-footer"><span>Laboratori Forestal Catalá</span></div>
+
+---
+
+# Ecuación de cubicación
+
+$$ VCC_{creaf} = \pi · \left(\frac{Dn}{2}\right)^{2} · Ht · Cf $$
+
+Donde:
+
+  - **Dn** es el diámetro normal (diámetro a la altura del pecho) en mm
+  - **Ht** es la altura total del árbol en m
+  - **Cf** es el coficiente de forma del tronco del árbol, en este caso fijado para todos
+    los árboles y especies en 0.441
+
+---
+layout: false
+class: inverse
+
+.font200[IFN app]
+
+---
+
+layout: true
+
+<div class="tweaked-header" style="background-image: url(img/logos.svg)"></div>
+
+<div class="my-footer"><span>Laboratori Forestal Catalá</span></div>
+
+---
+
+# Conectarse a la aplicación
+
+http://ifnapp.creaf.cat
+
+![](img/nfi_app_init.png)
+
+---
+
+# Información disponible
+
+## ¿Qué se puede consultar en la IFN app?
+
+- IFN2, IFN3 e IFN4
+  - Datos a nivel de parcela
+  - Arbustos
+  - Regeneración
+
+- Comparación IFN2 vs IFN3
+- Comparación IFN3 vs IFN4
+
+.red[.center[.font160[
+**Solo a nivel de Cataluña**
+]]]
+
+
+---
+
+# Información disponible
+
+## ¿A qué nivel de detalle?
+
+.pull-left[
+- Información a nivel de parcela
+
+Todas los niveles permiten desglosar:
+  - por Especie
+  - por Especie simplificada
+  - por Género
+  - por Planifolias / Coníferas
+  - por Caducifolias / Esclerófilas / Coníferas
+  - y/o por clases diamétricas (7,5 a >70cm de 5 en 5 cm)
+]
+
+.pull-right[
+![](img/map_plots.png)
+]
+
+---
+
+# Información disponible
+
+## Agregación
+
+Los datos de las parcelas pueden agregarse para calcular estadísticos por unidades
+administrativas o espacios protegidos
+
+.pull-left[
+**Unidades administrativas**
+
+- Provincias
+- Veguerias
+- Comarcas
+- Municipios
+
+**Espacios protegidos**
+
+- Espacios de interés natural
+- Espacios de protección especial
+- Red Natura 2000
+]
+
+.pull-right[.center[
+![](img/map_admin_protected.png)
+]]
+
+
+---
+layout: false
+class: inverse
+
+.font200[IFN app]
+
+.font170[Herramientas]
+
+---
+
+layout: true
+
+<div class="tweaked-header" style="background-image: url(img/logos.svg)"></div>
+
+<div class="my-footer"><span>Laboratori Forestal Catalá</span></div>
+
+---
+
+# Herramientas
+
+## Filtrado
+
+A la hora de realizar consultas, los datos pueden ser filtrados por cualquier variable
+de las parcelas (densidad, volúmenes, biomasas, condiciones climáticas, unidades
+administrativas...). Esto permite seleccionar un subconjunto de parcelas con las que
+trabajar o sobre las que realizar las agregaciones
+
+.center[
+```{r filters_ex, echo=FALSE, out.width=300}
+knitr::include_graphics('img/filters_ex.png')
+```
+]
+
+---
+
+# Herramientas
+
+## Filtrado
+
+También podemos hacer un filtrado creando un polígono personalizado
+
+.center[
+```{r filters_ex_2, echo=FALSE, out.width=350}
+knitr::include_graphics('img/filters_ex_2.png')
+```
+
+]
+
+---
+
+# Herramientas
+
+## Visualización
+
+La visualización de los datos se puede controlar tanto para parcelas
+
+.center[
+```{r viz_ex_1, echo=FALSE, out.width=650}
+knitr::include_graphics('img/viz_ex_1.png')
+```
+]
+
+---
+
+# Herramientas
+
+## Visualización
+
+La visualización de los datos se puede controlar tanto para parcelas como para polígonos
+
+.center[
+```{r viz_ex_2, echo=FALSE, out.width=650}
+knitr::include_graphics('img/viz_ex_2.png')
+```
+]
+
+---
+
+# Herramientas
+
+## Visualización
+
+La visualización de los datos se puede controlar tanto para parcelas como para polígonos,
+permitiendo seleccionar grupos funcionales o clases diamétricas si los datos están
+desglosados
+
+.center[
+```{r viz_ex_3, echo=FALSE, out.width=650}
+knitr::include_graphics('img/viz_ex_3.png')
+```
+]
+
+---
+
+# Herramientas
+
+## Visualización
+
+Los mapas se pueden guardar en formato SIG con un click
+
+.center[
+```{r viz_ex_4, echo=FALSE, out.width=450}
+knitr::include_graphics('img/viz_ex_4.png')
+```
+]
+
+---
+
+# Herramientas
+
+## Visualización
+
+Podemos hacer click en el mapa para obtener información más detallada
+
+.pull-left[.center[
+de la parcela
+```{r viz_ex_5, echo=FALSE, out.width=400}
+knitr::include_graphics('img/viz_ex_5.png')
+```
+]]
+
+.pull-right[.center[
+o de los polígonos
+```{r viz_ex_6, echo=FALSE, out.width=400}
+knitr::include_graphics('img/viz_ex_6.png')
+```
+]]
+
+---
+
+# Herramientas
+
+## Datos
+
+Los datos seleccionados también se pueden explorar en tablas
+
+.center[
+```{r data_ex_1, echo=FALSE, out.width=850}
+knitr::include_graphics('img/data_ex_1.png')
+```
+]
+
+---
+
+# Herramientas
+
+## Datos
+
+Los datos seleccionados también se pueden explorar en tablas seleccionando las variables
+a visualizar y ordenando o filtrando la tabla para permitir una inspección más detallada
+
+.pull-left[.center[
+```{r data_ex_2, echo=FALSE, out.width=400}
+knitr::include_graphics('img/data_ex_2.png')
+```
+]]
+
+.pull-right[.center[
+```{r data_ex_3, echo=FALSE, out.width=400}
+knitr::include_graphics('img/data_ex_3.png')
+```
+]]
+
+---
+
+# Herramientas
+
+## Datos
+
+Finalmente los datos se pueden descargar en texto (`csv`) o en excel (`xlsx`)
+
+.center[
+```{r data_ex_4, echo=FALSE, out.width=300}
+knitr::include_graphics('img/data_ex_4.png')
+```
+]
+
+---
+layout: false
+class: inverse
+
+.font200[IFN app]
+
+.font170[Comparaciones]
+
+---
+
+layout: true
+
+<div class="tweaked-header" style="background-image: url(img/logos.svg)"></div>
+
+<div class="my-footer"><span>Laboratori Forestal Catalá</span></div>
+
+---
+
+# Comparaciones
+
+La comparación dasométrica entre los diferentes IFNs permite obtener información adicional
+sobre tasas:
+
+```{r comparision_ex_1, echo=FALSE}
+knitr::include_graphics('img/comparision_ex_1.png')
+```
+
+---
+layout: false
+class: inverse
+
+.font200[Ejemplo de uso]
+
+Especies dominantes en densidad de las parcelas localizadas en Pla de l'Estany para el
+IFN4 y sus valores de área basal y densidad de los pies mayores vivos.
+
+---
+
+layout: true
+
+<div class="tweaked-header" style="background-image: url(img/logos.svg)"></div>
+
+<div class="my-footer"><span>Laboratori Forestal Catalá</span></div>
+
+---
+layout: false
+class: clear
+
+```{r app, echo=FALSE}
+knitr::include_app('http://ifnapp.creaf.cat', "550px")
+```
+
+
+---
+class: thanks clear middle
+
+# `r icon::fa("people-carry")` .font80[Concepto, diseño y programación:]
+
+Víctor Granda (JRU CREAF-CTFC)  
+Miquel de Cáceres (CTFC)  
+Jordi Martínez (CREAF-UAB)  
+Jordi Vayreda (JRU CREAF-CTFC)  
+
+.center[
+## `r icon::fa("hand-holding-usd")`
+
+```{r logos_fin, echo=FALSE}
+knitr::include_graphics('img/money.svg')
+```
+
+]
+
+```{r, include=FALSE}
+nfi_close(nfi_db)
+```
+
