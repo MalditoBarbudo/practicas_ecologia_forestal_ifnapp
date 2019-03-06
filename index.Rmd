@@ -126,7 +126,32 @@ tibble(
     area_basal_porcentaje = 'Área basal', densidad_porcentaje = 'Densidad',
     area_basal = 'Área basal', densidad = 'Densidad'
   ) %>%
-  cols_align('center')
+  tab_style(
+    style = cells_styles(text_weight = 'normal', text_size = 'medium', text_font = 'Raleway'),
+    locations = cells_column_labels(TRUE)
+  ) %>%
+  tab_style(
+    style = cells_styles(text_weight = 'bold', text_size = 'medium', text_font = 'Raleway'),
+    locations = cells_column_labels(groups = 'Porcentaje')
+  ) %>%
+  tab_style(
+    style = cells_styles(text_weight = 'bold', text_size = 'medium', text_font = 'Raleway'),
+    locations = cells_column_labels(groups = 'Orden')
+  ) %>%
+  tab_style(
+    style = cells_styles(text_weight = 'bold', text_size = 'medium', text_font = 'Raleway'),
+    locations = cells_column_labels(groups = 'Valor grupo funcional')
+  ) %>%
+  tab_style(
+    style = cells_styles(
+      text_weight = 'normal', text_size = 'medium', text_font = 'Raleway', text_align = 'center'
+    ),
+    locations = cells_data(TRUE)
+  ) %>%
+  tab_style(
+    style = cells_styles(text_weight = 'normal', text_font = 'Raleway'),
+    locations = cells_title('title')
+  )
 ```
 
 ---
@@ -158,7 +183,32 @@ tibble(
     area_basal_porcentaje = 'Área basal', densidad_porcentaje = 'Densidad',
     area_basal = 'Área basal', densidad = 'Densidad'
   ) %>%
-  cols_align('center')
+  tab_style(
+    style = cells_styles(text_weight = 'normal', text_size = 'medium', text_font = 'Raleway'),
+    locations = cells_column_labels(TRUE)
+  ) %>%
+  tab_style(
+    style = cells_styles(text_weight = 'bold', text_size = 'medium', text_font = 'Raleway'),
+    locations = cells_column_labels(groups = 'Porcentaje')
+  ) %>%
+  tab_style(
+    style = cells_styles(text_weight = 'bold', text_size = 'medium', text_font = 'Raleway'),
+    locations = cells_column_labels(groups = 'Orden')
+  ) %>%
+  tab_style(
+    style = cells_styles(text_weight = 'bold', text_size = 'medium', text_font = 'Raleway'),
+    locations = cells_column_labels(groups = 'Valor grupo funcional')
+  ) %>%
+  tab_style(
+    style = cells_styles(
+      text_weight = 'normal', text_size = 'medium', text_font = 'Raleway', text_align = 'center'
+    ),
+    locations = cells_data(TRUE)
+  ) %>%
+  tab_style(
+    style = cells_styles(text_weight = 'normal', text_font = 'Raleway'),
+    locations = cells_title('title')
+  )
 ```
 
 ---
@@ -195,7 +245,32 @@ tibble(
     sp_dom_ab_perc = 'Área basal', sp_dom_d_perc = 'Densidad',
     area_basal = 'Área basal', densidad = 'Densidad'
   ) %>%
-  cols_align('center')
+  tab_style(
+    style = cells_styles(text_weight = 'normal', text_size = 'medium', text_font = 'Raleway'),
+    locations = cells_column_labels(TRUE)
+  ) %>%
+  tab_style(
+    style = cells_styles(text_weight = 'bold', text_size = 'medium', text_font = 'Raleway'),
+    locations = cells_column_labels(groups = 'Especie dominante')
+  ) %>%
+  tab_style(
+    style = cells_styles(text_weight = 'bold', text_size = 'medium', text_font = 'Raleway'),
+    locations = cells_column_labels(groups = 'Porcentaje especie dominante')
+  ) %>%
+  tab_style(
+    style = cells_styles(text_weight = 'bold', text_size = 'medium', text_font = 'Raleway'),
+    locations = cells_column_labels(groups = 'Valor total parcela')
+  ) %>%
+  tab_style(
+    style = cells_styles(
+      text_weight = 'normal', text_size = 'medium', text_font = 'Raleway', text_align = 'center'
+    ),
+    locations = cells_data(TRUE)
+  ) %>%
+  tab_style(
+    style = cells_styles(text_weight = 'normal', text_font = 'Raleway'),
+    locations = cells_title('title')
+  )
 ```
 
 ---
