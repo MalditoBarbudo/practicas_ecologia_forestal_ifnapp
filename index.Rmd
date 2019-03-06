@@ -35,18 +35,15 @@ layout: true
 
 ```{r setup, include=FALSE}
 options(htmltools.dir.version = FALSE)
-```
-
-
-# Actualización de los Inventarios Forestales
-
-```{r libraries_and_packages, echo=FALSE, results='hide'}
 suppressPackageStartupMessages(library(tidyverse))
 library(tidyNFI)
 library(gt)
 
 nfi_db <- nfi_connect()
 ```
+
+# Actualización de los Inventarios Forestales
+
 
   - Segundo Inventario Forestal Nacional (IFN2, `r tbl(nfi_db, 'PLOT_NFI_2_RESULTS') %>% collect() %>% nrow()` parcelas, realizado en 1990)  
   - Tercer Inventario Forestal Nacional (IFN3, `r tbl(nfi_db, 'PLOT_NFI_3_RESULTS') %>% collect() %>% nrow()` parcelas, realizado en 2000)  
@@ -95,16 +92,16 @@ layout: true
 
 ## Criterio de presencia
 
-1. **Porcentaje (de densidad o de área basal)**, presentes a nivel de parcela o desglosadas por
-   grupo funcional
-1. **Orden (en densidad o en área basal)**, presente únicamente a en la información desglosada
-   por grupo funcional
+1. **Porcentaje (de densidad o de área basal)**, presente a nivel de parcela o en parcelas
+  desglosadas por grupo funcional
+1. **Orden (en densidad o en área basal)**, presente únicamente en la información de
+  parcelas desglosadas por grupo funcional
    
 ---
 
 # Presencia
 
-## Ejemplo desglosado por especie
+## Ejemplo parcela desglosada por especie
 
 ```{r ejemplo_presencia_desglosado_sp, echo=FALSE}
 tibble(
@@ -116,7 +113,7 @@ tibble(
   area_basal = c(6,2,7,5),
   densidad = c(600, 200, 150, 50)
 ) %>%
-  gt(rowname_col = 'Especie') %>%
+  gt() %>%
   tab_header(
     title = 'Criterios de presencia',
     subtitle = ''
@@ -136,7 +133,7 @@ tibble(
 
 # Presencia
 
-## Ejemplo desglosado por esclerófila, caducifolia y conífera
+## Ejemplo misma parcela desglosada por esclerófila, caducifolia y conífera
 
 ```{r ejemplo_presencia_desglosado_dec, echo=FALSE}
 tibble(
@@ -148,7 +145,7 @@ tibble(
   area_basal = c(6,9,5),
   densidad = c(600, 350, 50)
 ) %>%
-  gt(rowname_col = 'Especie') %>%
+  gt() %>%
   tab_header(
     title = 'Criterios de presencia',
     subtitle = ''
@@ -280,7 +277,7 @@ http://ifnapp.creaf.cat
 .pull-left[
 - Información a nivel de parcela
 
-Todas los niveles permiten desglosar:
+Se puede desglosar:
   - por Especie
   - por Especie simplificada
   - por Género
