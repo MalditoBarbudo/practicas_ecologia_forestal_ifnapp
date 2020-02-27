@@ -1,8 +1,8 @@
 ---
-title: "IFN app"
-subtitle: "Consulta Interactiva del 2º, 3º y 4º Inventario Forestal Nacional en Cataluña"
+title: "Laboratori Forestal Català"
+subtitle: "Consulta de bases de datos forestales generadas por CREAF y CTFC"
 author: ""
-date: "2019-03-07"
+date: "2020-03-02"
 output:
   xaringan::moon_reader:
     lib_dir: libs
@@ -17,11 +17,30 @@ output:
 
 class: title-slide
 
-# IFN app
+# Laboratori Forestal Català
 
-## Consulta Interactiva del 2º, 3º y 4º Inventario Forestal Nacional en Cataluña
+## Consulta de bases de datos forestales generadas por el CREAF y el CTFC
 
-### Laboratori Forestal Catalá .font80[(2019-03-07)]
+.pull-right[.font80[2020-03-02]]
+
+
+```{r setup, include=FALSE}
+options(htmltools.dir.version = FALSE)
+suppressPackageStartupMessages(library(tidyverse))
+library(lfcdata)
+library(gt)
+
+nfi_db <- nfi()
+allometr_db <- allometries()
+lidar_db <- lidar()
+```
+
+---
+layout: false
+class: inverse
+background-image: url("img/nfi_app_logo.png")
+
+.font120[Inventario Forestal Nacional:] .font200[NFI App]
 
 ---
 
@@ -33,28 +52,21 @@ layout: true
 
 ---
 
-```{r setup, include=FALSE}
-options(htmltools.dir.version = FALSE)
-suppressPackageStartupMessages(library(tidyverse))
-library(tidyNFI)
-library(gt)
-
-nfi_db <- nfi_connect()
-```
-
 # Actualización de los Inventarios Forestales
 
-
-  - Segundo Inventario Forestal Nacional (IFN2, `r tbl(nfi_db, 'PLOT_NFI_2_RESULTS') %>% collect() %>% nrow()` parcelas, realizado en 1990)  
-  - Tercer Inventario Forestal Nacional (IFN3, `r tbl(nfi_db, 'PLOT_NFI_3_RESULTS') %>% collect() %>% nrow()` parcelas, realizado en 2000)  
-  - Cuarto Inventario Forestal Nacional (IFN4, `r tbl(nfi_db, 'PLOT_NFI_4_RESULTS') %>% collect() %>% nrow()` parcelas, realizado en 2015)  
+  - Segundo Inventario Forestal Nacional (IFN2,
+    `r nfi_db$get_data('plot_nfi_2_results') %>% nrow()` parcelas, realizado en 1990)  
+  - Tercer Inventario Forestal Nacional (IFN3,
+    `r nfi_db$get_data('plot_nfi_3_results') %>% nrow()` parcelas, realizado en 2000)  
+  - Cuarto Inventario Forestal Nacional (IFN4,
+    `r nfi_db$get_data('plot_nfi_4_results') %>% nrow()` parcelas, realizado en 2015)  
 
 Cada inventario se realiza cada 10-15 años sobre las mismas parcelas, si es posible. Hay
-**`r tbl(nfi_db, 'PLOTS') %>% filter(presence_NFI_2, presence_NFI_3, presence_NFI_4) %>% collect() %>% nrow()`**
+**`r nfi_db$get_data('plots') %>% filter(presence_NFI_2, presence_NFI_3, presence_NFI_4) %>% collect() %>% nrow()`**
 parcelas en común entre los tres inventarios,
-**`r tbl(nfi_db, 'PLOTS') %>% filter(presence_NFI_2, presence_NFI_3) %>% collect() %>% nrow()`**
+**`r nfi_db$get_data('plots') %>% filter(presence_NFI_2, presence_NFI_3) %>% collect() %>% nrow()`**
 parcelas en común entre el IFN2 y el IFN3 y
-**`r tbl(nfi_db, 'PLOTS') %>% filter(presence_NFI_3, presence_NFI_4) %>% collect() %>% nrow()`**
+**`r nfi_db$get_data('plots') %>% filter(presence_NFI_3, presence_NFI_4) %>% collect() %>% nrow()`**
 parcelas en común entre el IFN3 y el IFN4.
 
 
@@ -277,35 +289,6 @@ tibble(
 layout: false
 class: inverse
 
-.font200[Conceptos importantes]
-
-.font170[Cubicación]
-
----
-
-layout: true
-
-<div class="tweaked-header" style="background-image: url(img/logos.svg)"></div>
-
-<div class="my-footer"><span>Laboratori Forestal Catalá</span></div>
-
----
-
-# Ecuación de cubicación
-
-$$ VCC_{creaf} = \pi · \left(\frac{Dn}{2}\right)^{2} · Ht · Cf $$
-
-Donde:
-
-  - **Dn** es el diámetro normal (diámetro a la altura del pecho) en mm
-  - **Ht** es la altura total del árbol en m
-  - **Cf** es el coficiente de forma del tronco del árbol, en este caso fijado para todos
-    los árboles y especies en 0.441
-
----
-layout: false
-class: inverse
-
 .font200[IFN app]
 
 ---
@@ -320,7 +303,7 @@ layout: true
 
 # Conectarse a la aplicación
 
-http://ifnapp.creaf.cat
+http://laboratoriforestal.creaf.uab.cat/nfi_app
 
 ![](img/nfi_app_init.png)
 
@@ -608,6 +591,58 @@ Especies dominantes en densidad de las parcelas localizadas en Pla de l'Estany p
 IFN4 y sus valores de área basal y densidad de los pies mayores vivos.
 
 ---
+layout: false
+class: inverse
+background-image: url("img/allometries_app_logo.png")
+
+.font120[Base de datos de alometrías:] .font200[AllometrApp]
+
+---
+
+layout: false
+class: inverse
+
+.font200[Conceptos importantes]
+
+.font170[Cubicación]
+
+---
+
+layout: true
+
+<div class="tweaked-header" style="background-image: url(img/logos.svg)"></div>
+
+<div class="my-footer"><span>Laboratori Forestal Catalá</span></div>
+
+---
+
+# Ecuaciones de cubicación
+
+$$ VCC_{creaf} = \pi · \left(\frac{Dn}{2}\right)^{2} · Ht · Cf $$
+
+Donde:
+
+  - **Dn** es el diámetro normal (diámetro a la altura del pecho) en mm
+  - **Ht** es la altura total del árbol en m
+  - **Cf** es el coficiente de forma del tronco del árbol, en este caso fijado para todos
+    los árboles y especies en 0.441
+
+---
+
+# Conectarse a la aplicación
+
+http://laboratoriforestal.creaf.uab.cat/allometrapp
+
+![](img/allometries_app_init.png)
+
+---
+
+
+
+
+
+
+---
 
 layout: true
 
@@ -644,7 +679,4 @@ knitr::include_graphics('img/money.svg')
 
 ]
 
-```{r, include=FALSE}
-nfi_close(nfi_db)
-```
 
