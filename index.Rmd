@@ -676,6 +676,40 @@ background-image: url("img/lidar_app_logo.png")
 
 ---
 
+layout: true
+
+<div class="tweaked-header" style="background-image: url(img/logos.svg)"></div>
+
+<div class="my-footer"><span>Laboratori Forestal Catalá</span></div>
+
+---
+
+# LiDAR
+
+Aqui va una explicación de lo que es LiDAR
+
+---
+
+# Conectarse a la aplicación
+
+http://laboratoriforestal.creaf.uab.cat/allometrapp
+
+![](img/lidar_app_init.png)
+
+---
+
+# Información disponible
+
+## ¿Qué se puede consultar en la LiDAR App?
+
+Podemos consultar mapas (rásters) con las variables dasométricas calculadas
+a partir de los vuelos LiDAR y calibradas con los datos del Inventario
+Forestal Nacional.
+
+---
+
+
+
 
 
 
