@@ -139,29 +139,29 @@ tibble(
     area_basal = 'Área basal', densidad = 'Densidad'
   ) %>%
   tab_style(
-    style = cells_styles(text_weight = 'normal', text_size = 'medium', text_font = 'Raleway'),
+    style = cell_text(weight = 'normal', size = 'medium', font = 'Raleway'),
     locations = cells_column_labels(TRUE)
   ) %>%
   tab_style(
-    style = cells_styles(text_weight = 'bold', text_size = 'medium', text_font = 'Raleway'),
+    style = cell_text(weight = 'bold', size = 'medium', font = 'Raleway'),
     locations = cells_column_labels(groups = 'Porcentaje')
   ) %>%
   tab_style(
-    style = cells_styles(text_weight = 'bold', text_size = 'medium', text_font = 'Raleway'),
+    style = cell_text(weight = 'bold', size = 'medium', font = 'Raleway'),
     locations = cells_column_labels(groups = 'Orden')
   ) %>%
   tab_style(
-    style = cells_styles(text_weight = 'bold', text_size = 'medium', text_font = 'Raleway'),
+    style = cell_text(weight = 'bold', size = 'medium', font = 'Raleway'),
     locations = cells_column_labels(groups = 'Valor grupo funcional')
   ) %>%
   tab_style(
-    style = cells_styles(
-      text_weight = 'normal', text_size = 'medium', text_font = 'Raleway', text_align = 'center'
+    style = cell_text(
+      weight = 'normal', size = 'medium', font = 'Raleway', align = 'center'
     ),
     locations = cells_data(TRUE)
   ) %>%
   tab_style(
-    style = cells_styles(text_weight = 'normal', text_font = 'Raleway'),
+    style = cell_text(weight = 'normal', font = 'Raleway'),
     locations = cells_title('title')
   )
 ```
@@ -196,29 +196,29 @@ tibble(
     area_basal = 'Área basal', densidad = 'Densidad'
   ) %>%
   tab_style(
-    style = cells_styles(text_weight = 'normal', text_size = 'medium', text_font = 'Raleway'),
+    style = cell_text(weight = 'normal', size = 'medium', font = 'Raleway'),
     locations = cells_column_labels(TRUE)
   ) %>%
   tab_style(
-    style = cells_styles(text_weight = 'bold', text_size = 'medium', text_font = 'Raleway'),
+    style = cell_text(weight = 'bold', size = 'medium', font = 'Raleway'),
     locations = cells_column_labels(groups = 'Porcentaje')
   ) %>%
   tab_style(
-    style = cells_styles(text_weight = 'bold', text_size = 'medium', text_font = 'Raleway'),
+    style = cell_text(weight = 'bold', size = 'medium', font = 'Raleway'),
     locations = cells_column_labels(groups = 'Orden')
   ) %>%
   tab_style(
-    style = cells_styles(text_weight = 'bold', text_size = 'medium', text_font = 'Raleway'),
+    style = cell_text(weight = 'bold', size = 'medium', font = 'Raleway'),
     locations = cells_column_labels(groups = 'Valor grupo funcional')
   ) %>%
   tab_style(
-    style = cells_styles(
-      text_weight = 'normal', text_size = 'medium', text_font = 'Raleway', text_align = 'center'
+    style = cell_text(
+      weight = 'normal', size = 'medium', font = 'Raleway', align = 'center'
     ),
     locations = cells_data(TRUE)
   ) %>%
   tab_style(
-    style = cells_styles(text_weight = 'normal', text_font = 'Raleway'),
+    style = cell_text(weight = 'normal', font = 'Raleway'),
     locations = cells_title('title')
   )
 ```
@@ -258,29 +258,29 @@ tibble(
     area_basal = 'Área basal', densidad = 'Densidad'
   ) %>%
   tab_style(
-    style = cells_styles(text_weight = 'normal', text_size = 'medium', text_font = 'Raleway'),
+    style = cell_text(weight = 'normal', size = 'medium', font = 'Raleway'),
     locations = cells_column_labels(TRUE)
   ) %>%
   tab_style(
-    style = cells_styles(text_weight = 'bold', text_size = 'medium', text_font = 'Raleway'),
+    style = cell_text(weight = 'bold', size = 'medium', font = 'Raleway'),
     locations = cells_column_labels(groups = 'Especie dominante')
   ) %>%
   tab_style(
-    style = cells_styles(text_weight = 'bold', text_size = 'medium', text_font = 'Raleway'),
+    style = cell_text(weight = 'bold', size = 'medium', font = 'Raleway'),
     locations = cells_column_labels(groups = 'Porcentaje especie dominante')
   ) %>%
   tab_style(
-    style = cells_styles(text_weight = 'bold', text_size = 'medium', text_font = 'Raleway'),
+    style = cell_text(weight = 'bold', size = 'medium', font = 'Raleway'),
     locations = cells_column_labels(groups = 'Valor total parcela')
   ) %>%
   tab_style(
-    style = cells_styles(
-      text_weight = 'normal', text_size = 'medium', text_font = 'Raleway', text_align = 'center'
+    style = cell_text(
+      weight = 'normal', size = 'medium', font = 'Raleway', align = 'center'
     ),
     locations = cells_data(TRUE)
   ) %>%
   tab_style(
-    style = cells_styles(text_weight = 'normal', text_font = 'Raleway'),
+    style = cell_text(weight = 'normal', font = 'Raleway'),
     locations = cells_title('title')
   )
 ```
@@ -634,6 +634,45 @@ Donde:
 http://laboratoriforestal.creaf.uab.cat/allometrapp
 
 ![](img/allometries_app_init.png)
+
+---
+
+# Información disponible
+
+## ¿Qué se puede consultar en la AllometrApp?
+
+`r allometr_db$get_data('allometries') %>% nrow()` alometrías para diferentes
+niveles administrativos (comarcas, provincias...) y filogenéticos
+(especies, géneros...).
+
+You can calculate different variables:  
+`r allometr_db$get_data('allometries') %>% pull(dependent_var) %>% unique()`
+
+---
+
+# Herramientas
+
+## Cálculo
+
+Si disponemos de un archivo excel (o texto) con las medidas que queremos usar
+para calcular la alometría, podemos subirlo en la pestaña de cálculo y 
+seleccionar la alometría que queremos obtener. Los resultados se pueden descargar
+en excel o texto.
+
+---
+layout: false
+class: inverse
+
+.font200[Ejemplo de uso]
+
+Calcular Ht a partir de medidas de DBH en *Fagus sylvatica* en Lleida
+
+---
+layout: false
+class: inverse
+background-image: url("img/lidar_app_logo.png")
+
+.font120[Base de datos LiDAR:] .font200[LiDAR App]
 
 ---
 
