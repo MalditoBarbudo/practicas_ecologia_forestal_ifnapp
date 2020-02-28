@@ -13,6 +13,8 @@ output:
       highlightLines: true
       countIncrementalSlides: false
       slideNumberFormat: ""
+editor_options: 
+  chunk_output_type: console
 ---
 
 class: title-slide
@@ -144,21 +146,21 @@ tibble(
   ) %>%
   tab_style(
     style = cell_text(weight = 'bold', size = 'medium', font = 'Raleway'),
-    locations = cells_column_labels(groups = 'Porcentaje')
+    locations = cells_column_spanners(spanners = 'Porcentaje')
   ) %>%
   tab_style(
     style = cell_text(weight = 'bold', size = 'medium', font = 'Raleway'),
-    locations = cells_column_labels(groups = 'Orden')
+    locations = cells_column_spanners(spanners = 'Orden')
   ) %>%
   tab_style(
     style = cell_text(weight = 'bold', size = 'medium', font = 'Raleway'),
-    locations = cells_column_labels(groups = 'Valor grupo funcional')
+    locations = cells_column_spanners(spanners = 'Valor grupo funcional')
   ) %>%
   tab_style(
     style = cell_text(
       weight = 'normal', size = 'medium', font = 'Raleway', align = 'center'
     ),
-    locations = cells_data(TRUE)
+    locations = cells_body(TRUE)
   ) %>%
   tab_style(
     style = cell_text(weight = 'normal', font = 'Raleway'),
@@ -201,21 +203,21 @@ tibble(
   ) %>%
   tab_style(
     style = cell_text(weight = 'bold', size = 'medium', font = 'Raleway'),
-    locations = cells_column_labels(groups = 'Porcentaje')
+    locations = cells_column_spanners(spanners = 'Porcentaje')
   ) %>%
   tab_style(
     style = cell_text(weight = 'bold', size = 'medium', font = 'Raleway'),
-    locations = cells_column_labels(groups = 'Orden')
+    locations = cells_column_spanners(spanners = 'Orden')
   ) %>%
   tab_style(
     style = cell_text(weight = 'bold', size = 'medium', font = 'Raleway'),
-    locations = cells_column_labels(groups = 'Valor grupo funcional')
+    locations = cells_column_spanners(spanners = 'Valor grupo funcional')
   ) %>%
   tab_style(
     style = cell_text(
       weight = 'normal', size = 'medium', font = 'Raleway', align = 'center'
     ),
-    locations = cells_data(TRUE)
+    locations = cells_body(TRUE)
   ) %>%
   tab_style(
     style = cell_text(weight = 'normal', font = 'Raleway'),
@@ -263,21 +265,21 @@ tibble(
   ) %>%
   tab_style(
     style = cell_text(weight = 'bold', size = 'medium', font = 'Raleway'),
-    locations = cells_column_labels(groups = 'Especie dominante')
+    locations = cells_column_spanners(spanners = 'Especie dominante')
   ) %>%
   tab_style(
     style = cell_text(weight = 'bold', size = 'medium', font = 'Raleway'),
-    locations = cells_column_labels(groups = 'Porcentaje especie dominante')
+    locations = cells_column_spanners(spanners = 'Porcentaje especie dominante')
   ) %>%
   tab_style(
     style = cell_text(weight = 'bold', size = 'medium', font = 'Raleway'),
-    locations = cells_column_labels(groups = 'Valor total parcela')
+    locations = cells_column_spanners(spanners = 'Valor total parcela')
   ) %>%
   tab_style(
     style = cell_text(
       weight = 'normal', size = 'medium', font = 'Raleway', align = 'center'
     ),
-    locations = cells_data(TRUE)
+    locations = cells_body(TRUE)
   ) %>%
   tab_style(
     style = cell_text(weight = 'normal', font = 'Raleway'),
@@ -645,7 +647,7 @@ http://laboratoriforestal.creaf.uab.cat/allometrapp
 niveles administrativos (comarcas, provincias...) y filogenéticos
 (especies, géneros...).
 
-You can calculate different variables:  
+Se pueden calcular diferentes variables:  
 `r allometr_db$get_data('allometries') %>% pull(dependent_var) %>% unique()`
 
 ---
@@ -659,13 +661,57 @@ para calcular la alometría, podemos subirlo en la pestaña de cálculo y
 seleccionar la alometría que queremos obtener. Los resultados se pueden descargar
 en excel o texto.
 
+.center[
+```{r allom_calculate, echo=FALSE, out.width=650}
+knitr::include_graphics('img/allometries_app_calculate.png')
+```
+]
+
 ---
 layout: false
 class: inverse
 
 .font200[Ejemplo de uso]
 
-Calcular Ht a partir de medidas de DBH en *Fagus sylvatica* en Lleida
+Consultar cuántas alometrías hay para calcular "Altura total" (Ht) en haya
+(*Fagus sylvatica*) en Lleida.
+
+Calcular la altura total para 3 hayas en una parcela experimental en Lleida cuyos
+diámetros (medidos en cm) fueron:  
+
+```{r allomtr_exercise, echo=FALSE}
+tibble(
+  Árbol = c('haya_1', 'haya_2', 'haya_3'),
+  dbh = c(22.5, 15.6, 18.2)
+) %>%
+  gt() %>%
+  tab_style(
+    style = list(
+      cell_text(
+        weight = 'normal', size = 'medium', font = 'Raleway', align = 'center'
+      ),
+      cell_fill(color = '#23373B', alpha = 1),
+      cell_borders(color = '#23373B')
+    ),
+    locations = cells_body(TRUE)
+  ) %>%
+  tab_style(
+    style = list(
+      cell_text(weight = 'normal', font = 'Raleway'),
+      cell_fill(color = '#23373B', alpha = 1),
+      cell_borders(color = '#23373B')
+    ),
+    locations = cells_title('title')
+  ) %>%
+  tab_style(
+    style = list(
+      cell_text(weight = 'normal', size = 'medium', font = 'Raleway'),
+      cell_fill(color = '#23373B', alpha = 1),
+      cell_borders(color = '#23373B')
+    ),
+    locations = cells_column_labels(TRUE)
+  )
+```
 
 ---
 layout: false
@@ -686,13 +732,19 @@ layout: true
 
 # LiDAR
 
-Aqui va una explicación de lo que es LiDAR
+LiDAR (Light imaging, detection and ranging) es una técnica que usa pulsos de luz láser
+para medir la luz reflejada por el terreno y el tiempo que tarda en reflejar a diferentes
+longitudes de onda. Esto permite, mediante el uso de calibraciones y modelado, inferir
+variables dasométricas e hídricas de la vegetación presente en el terreno.  
+.font60[Image credits: felix.rohrba.ch]
+
+![](img/lidar_flight.jpg)
 
 ---
 
 # Conectarse a la aplicación
 
-http://laboratoriforestal.creaf.uab.cat/allometrapp
+http://laboratoriforestal.creaf.uab.cat/lidarapp
 
 ![](img/lidar_app_init.png)
 
@@ -706,13 +758,17 @@ Podemos consultar mapas (rásters) con las variables dasométricas calculadas
 a partir de los vuelos LiDAR y calibradas con los datos del Inventario
 Forestal Nacional.
 
+![](img/lidar_app_raster.png)
+
 ---
+layout: false
+class: inverse
 
+.font200[Ejemplo de uso]
 
+Obtener el valor medio de las variables forestales a nivel de comarca
 
-
-
-
+---
 
 
 ---
@@ -724,18 +780,9 @@ layout: true
 <div class="my-footer"><span>Laboratori Forestal Catalá</span></div>
 
 ---
-layout: false
-class: clear
-
-```{r app, echo=FALSE}
-knitr::include_app('http://ifnapp.creaf.cat', "550px")
-```
-
-
----
 class: thanks clear middle
 
-# `r icon::fa("people-carry")` .font80[Concepto, diseño y programación:]
+# `r icon::fa("people-carry")`
 
 Víctor Granda (JRU CREAF-CTFC)  
 Miquel de Cáceres (CTFC)  
