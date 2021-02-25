@@ -2,7 +2,7 @@
 title: "Laboratori Forestal Català"
 subtitle: "Consulta de bases de datos forestales generadas por CREAF y CTFC"
 author: ""
-date: "2020-03-02"
+date: "2021-03-01"
 output:
   xaringan::moon_reader:
     lib_dir: libs
@@ -34,6 +34,80 @@ nfi_db <- nfi()
 allometr_db <- allometries()
 lidar_db <- lidar()
 ```
+
+---
+layout: false
+class: inverse
+background-image: url("img/lfc_logo.svg")
+
+.font200[Laboratori Forestal Català]
+
+El LFC es una iniciativa destinada a poner a disposición del público, experto o curioso, la información y los
+datos relacionados con los bosques generados en los proyectos de investigación del CREAF y del CTFC.
+
+
+---
+layout: false
+class: inverse
+background-image: url("img/nfi_app_logo.png")
+
+.font180[NFI app]
+
+Acceder, visualizar y descargar los datos del Inventario Forestal Nacional en Cataluña
+
+---
+layout: false
+class: inverse
+background-image: url("img/allometries_app_logo.png")
+
+.font180[Allometr app]
+
+Base de datos de relaciones alómetricas y cubicaciones basadas en los datos del IFN, del Mapa de Coberturas de
+Cataluña y del Instituto Nacional de Investigaciones Agrarias.
+
+---
+layout: false
+class: inverse
+background-image: url("img/lidar_app_logo.png")
+
+.font180[LiDAR app]
+
+Acceder y visualizar variables forestales calculadas a partir de vuelos LiDAR.
+
+---
+layout: false
+class: inverse
+background-image: url("img/fes_app_logo.png")
+
+.font180[FES app]
+
+Información de los servicios ecosistémicos de los bosques de Cataluña.
+
+---
+layout: false
+class: inverse
+background-image: url("img/meteoland_app_logo.png")
+
+.font180[Meteoland app]
+
+Base de datos de estimaciones diarías de datos climatológicos para toda Cataluña.
+
+---
+layout: false
+class: inverse
+background-image: url("img/catdrought_app_logo.png")
+
+.font180[Catdrought app]
+
+Estimaciones diarias del balance hídrico, la humedad del suelo y el estrés hídrico de los bosques de Cataluña.
+
+---
+
+layout: true
+
+<div class="tweaked-header" style="background-image: url(img/logos.svg)"></div>
+
+<div class="my-footer"><span>Laboratori Forestal Catalá</span></div>
 
 ---
 layout: false
@@ -142,18 +216,18 @@ tibble(
     style = cell_text(weight = 'normal', size = 'medium', font = 'Raleway'),
     locations = cells_column_labels(TRUE)
   ) %>%
-  tab_style(
-    style = cell_text(weight = 'bold', size = 'medium', font = 'Raleway'),
-    locations = cells_column_labels(groups = 'Porcentaje')
-  ) %>%
-  tab_style(
-    style = cell_text(weight = 'bold', size = 'medium', font = 'Raleway'),
-    locations = cells_column_labels(groups = 'Orden')
-  ) %>%
-  tab_style(
-    style = cell_text(weight = 'bold', size = 'medium', font = 'Raleway'),
-    locations = cells_column_labels(groups = 'Valor grupo funcional')
-  ) %>%
+  # tab_style(
+  #   style = cell_text(weight = 'bold', size = 'medium', font = 'Raleway'),
+  #   locations = cells_column_labels(groups = 'Porcentaje')
+  # ) %>%
+  # tab_style(
+  #   style = cell_text(weight = 'bold', size = 'medium', font = 'Raleway'),
+  #   locations = cells_column_labels(groups = 'Orden')
+  # ) %>%
+  # tab_style(
+  #   style = cell_text(weight = 'bold', size = 'medium', font = 'Raleway'),
+  #   locations = cells_column_labels(groups = 'Valor grupo funcional')
+  # ) %>%
   tab_style(
     style = cell_text(
       weight = 'normal', size = 'medium', font = 'Raleway', align = 'center'
@@ -199,18 +273,18 @@ tibble(
     style = cell_text(weight = 'normal', size = 'medium', font = 'Raleway'),
     locations = cells_column_labels(TRUE)
   ) %>%
-  tab_style(
-    style = cell_text(weight = 'bold', size = 'medium', font = 'Raleway'),
-    locations = cells_column_labels(groups = 'Porcentaje')
-  ) %>%
-  tab_style(
-    style = cell_text(weight = 'bold', size = 'medium', font = 'Raleway'),
-    locations = cells_column_labels(groups = 'Orden')
-  ) %>%
-  tab_style(
-    style = cell_text(weight = 'bold', size = 'medium', font = 'Raleway'),
-    locations = cells_column_labels(groups = 'Valor grupo funcional')
-  ) %>%
+  # tab_style(
+  #   style = cell_text(weight = 'bold', size = 'medium', font = 'Raleway'),
+  #   locations = cells_column_labels(groups = 'Porcentaje')
+  # ) %>%
+  # tab_style(
+  #   style = cell_text(weight = 'bold', size = 'medium', font = 'Raleway'),
+  #   locations = cells_column_labels(groups = 'Orden')
+  # ) %>%
+  # tab_style(
+  #   style = cell_text(weight = 'bold', size = 'medium', font = 'Raleway'),
+  #   locations = cells_column_labels(groups = 'Valor grupo funcional')
+  # ) %>%
   tab_style(
     style = cell_text(
       weight = 'normal', size = 'medium', font = 'Raleway', align = 'center'
@@ -261,18 +335,18 @@ tibble(
     style = cell_text(weight = 'normal', size = 'medium', font = 'Raleway'),
     locations = cells_column_labels(TRUE)
   ) %>%
-  tab_style(
-    style = cell_text(weight = 'bold', size = 'medium', font = 'Raleway'),
-    locations = cells_column_labels(groups = 'Especie dominante')
-  ) %>%
-  tab_style(
-    style = cell_text(weight = 'bold', size = 'medium', font = 'Raleway'),
-    locations = cells_column_labels(groups = 'Porcentaje especie dominante')
-  ) %>%
-  tab_style(
-    style = cell_text(weight = 'bold', size = 'medium', font = 'Raleway'),
-    locations = cells_column_labels(groups = 'Valor total parcela')
-  ) %>%
+  # tab_style(
+  #   style = cell_text(weight = 'bold', size = 'medium', font = 'Raleway'),
+  #   locations = cells_column_labels(groups = 'Especie dominante')
+  # ) %>%
+  # tab_style(
+  #   style = cell_text(weight = 'bold', size = 'medium', font = 'Raleway'),
+  #   locations = cells_column_labels(groups = 'Porcentaje especie dominante')
+  # ) %>%
+  # tab_style(
+  #   style = cell_text(weight = 'bold', size = 'medium', font = 'Raleway'),
+  #   locations = cells_column_labels(groups = 'Valor total parcela')
+  # ) %>%
   tab_style(
     style = cell_text(
       weight = 'normal', size = 'medium', font = 'Raleway', align = 'center'
@@ -550,7 +624,7 @@ Finalmente los datos se pueden descargar en texto (`csv`) o en excel (`xlsx`)
 
 .center[
 ```{r data_ex_4, echo=FALSE, out.width=300}
-knitr::include_graphics('img/data_ex_4.png')
+knitr::include_graphics('img/viz_ex_4.png')
 ```
 ]
 
@@ -708,15 +782,6 @@ Forestal Nacional.
 
 ---
 
-
-
-
-
-
-
-
----
-
 layout: true
 
 <div class="tweaked-header" style="background-image: url(img/logos.svg)"></div>
@@ -724,18 +789,9 @@ layout: true
 <div class="my-footer"><span>Laboratori Forestal Catalá</span></div>
 
 ---
-layout: false
-class: clear
-
-```{r app, echo=FALSE}
-knitr::include_app('http://ifnapp.creaf.cat', "550px")
-```
-
-
----
 class: thanks clear middle
 
-# `r icon::fa("people-carry")` .font80[Concepto, diseño y programación:]
+# `r icon::fontawesome("people-carry")` .font80[Concepto, diseño y programación:]
 
 Víctor Granda (JRU CREAF-CTFC)  
 Miquel de Cáceres (CTFC)  
@@ -744,7 +800,7 @@ Jordi Martínez (CREAF-UAB)
 Jordi Vayreda (JRU CREAF-CTFC)  
 
 .center[
-## `r icon::fa("hand-holding-usd")`
+## `r icon::fontawesome("hand-holding-usd")`
 
 ```{r logos_fin, echo=FALSE}
 knitr::include_graphics('img/money.svg')
