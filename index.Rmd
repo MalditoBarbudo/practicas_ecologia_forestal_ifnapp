@@ -21,7 +21,7 @@ class: title-slide
 
 ## Consulta de bases de datos forestales generadas por el CREAF y el CTFC
 
-.pull-right[.font80[2020-03-02]]
+.pull-right[.font80[2021-03-01]]
 
 
 ```{r setup, include=FALSE}
