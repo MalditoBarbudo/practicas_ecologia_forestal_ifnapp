@@ -637,10 +637,19 @@ knitr::include_graphics('img/comparision_ex_1.png')
 layout: false
 class: inverse
 
-.font200[Ejemplo de uso]
+.font200[Ejemplo de uso 1]
 
 Especies dominantes en densidad de las parcelas localizadas en Pla de l'Estany para el
 IFN4 y sus valores de área basal y densidad de los pies mayores vivos.
+
+---
+layout: false
+class: inverse
+
+.font200[Ejemplo de uso 2]
+
+Averiguar como ha cambiado la densidad media de las hayas en el Vallès Oriental entre el IFN v3 y
+el IFN v4 (balance) y el crecimiento medio en área basal en ese periodo.
 
 ---
 layout: false
