@@ -206,7 +206,7 @@ tibble(
   ) %>%
   tab_spanner('Orden', c('area_basal_orden', 'densidad_orden')) %>%
   tab_spanner('Porcentaje', c('area_basal_porcentaje', 'densidad_porcentaje')) %>%
-  tab_spanner('Valor grupo funcional', c('area_basal', 'densidad')) %>%
+  tab_spanner('Valor real', c('area_basal', 'densidad')) %>%
   cols_label(
     area_basal_orden = 'Área basal', densidad_orden = 'Densidad',
     area_basal_porcentaje = 'Área basal', densidad_porcentaje = 'Densidad',
@@ -216,23 +216,15 @@ tibble(
     style = cell_text(weight = 'normal', size = 'medium', font = 'Raleway'),
     locations = cells_column_labels(TRUE)
   ) %>%
-  # tab_style(
-  #   style = cell_text(weight = 'bold', size = 'medium', font = 'Raleway'),
-  #   locations = cells_column_labels(groups = 'Porcentaje')
-  # ) %>%
-  # tab_style(
-  #   style = cell_text(weight = 'bold', size = 'medium', font = 'Raleway'),
-  #   locations = cells_column_labels(groups = 'Orden')
-  # ) %>%
-  # tab_style(
-  #   style = cell_text(weight = 'bold', size = 'medium', font = 'Raleway'),
-  #   locations = cells_column_labels(groups = 'Valor grupo funcional')
-  # ) %>%
+  tab_style(
+    style = cell_text(weight = 'bold', size = 'medium', font = 'Raleway'),
+    locations = cells_column_spanners(c('Porcentaje', 'Orden', 'Valor real'))
+  ) %>%
   tab_style(
     style = cell_text(
       weight = 'normal', size = 'medium', font = 'Raleway', align = 'center'
     ),
-    locations = cells_data(TRUE)
+    locations = cells_body(TRUE)
   ) %>%
   tab_style(
     style = cell_text(weight = 'normal', font = 'Raleway'),
@@ -263,7 +255,7 @@ tibble(
   ) %>%
   tab_spanner('Orden', c('area_basal_orden', 'densidad_orden')) %>%
   tab_spanner('Porcentaje', c('area_basal_porcentaje', 'densidad_porcentaje')) %>%
-  tab_spanner('Valor grupo funcional', c('area_basal', 'densidad')) %>%
+  tab_spanner('Valor real', c('area_basal', 'densidad')) %>%
   cols_label(
     area_basal_orden = 'Área basal', densidad_orden = 'Densidad',
     area_basal_porcentaje = 'Área basal', densidad_porcentaje = 'Densidad',
@@ -273,23 +265,15 @@ tibble(
     style = cell_text(weight = 'normal', size = 'medium', font = 'Raleway'),
     locations = cells_column_labels(TRUE)
   ) %>%
-  # tab_style(
-  #   style = cell_text(weight = 'bold', size = 'medium', font = 'Raleway'),
-  #   locations = cells_column_labels(groups = 'Porcentaje')
-  # ) %>%
-  # tab_style(
-  #   style = cell_text(weight = 'bold', size = 'medium', font = 'Raleway'),
-  #   locations = cells_column_labels(groups = 'Orden')
-  # ) %>%
-  # tab_style(
-  #   style = cell_text(weight = 'bold', size = 'medium', font = 'Raleway'),
-  #   locations = cells_column_labels(groups = 'Valor grupo funcional')
-  # ) %>%
+  tab_style(
+    style = cell_text(weight = 'bold', size = 'medium', font = 'Raleway'),
+    locations = cells_column_spanners(c('Porcentaje', 'Orden', 'Valor real'))
+  ) %>%
   tab_style(
     style = cell_text(
       weight = 'normal', size = 'medium', font = 'Raleway', align = 'center'
     ),
-    locations = cells_data(TRUE)
+    locations = cells_body(TRUE)
   ) %>%
   tab_style(
     style = cell_text(weight = 'normal', font = 'Raleway'),
@@ -335,23 +319,17 @@ tibble(
     style = cell_text(weight = 'normal', size = 'medium', font = 'Raleway'),
     locations = cells_column_labels(TRUE)
   ) %>%
-  # tab_style(
-  #   style = cell_text(weight = 'bold', size = 'medium', font = 'Raleway'),
-  #   locations = cells_column_labels(groups = 'Especie dominante')
-  # ) %>%
-  # tab_style(
-  #   style = cell_text(weight = 'bold', size = 'medium', font = 'Raleway'),
-  #   locations = cells_column_labels(groups = 'Porcentaje especie dominante')
-  # ) %>%
-  # tab_style(
-  #   style = cell_text(weight = 'bold', size = 'medium', font = 'Raleway'),
-  #   locations = cells_column_labels(groups = 'Valor total parcela')
-  # ) %>%
+  tab_style(
+    style = cell_text(weight = 'bold', size = 'medium', font = 'Raleway'),
+    locations = cells_column_spanners(
+      c('Especie dominante', 'Porcentaje especie dominante', 'Valor total parcela')
+    )
+  ) %>%
   tab_style(
     style = cell_text(
       weight = 'normal', size = 'medium', font = 'Raleway', align = 'center'
     ),
-    locations = cells_data(TRUE)
+    locations = cells_body(TRUE)
   ) %>%
   tab_style(
     style = cell_text(weight = 'normal', font = 'Raleway'),
@@ -719,7 +697,7 @@ http://laboratoriforestal.creaf.uab.cat/allometrapp
 niveles administrativos (comarcas, provincias...) y filogenéticos
 (especies, géneros...).
 
-You can calculate different variables:  
+Dependiendo de las variables de entrada se pueden calcular las siguientes variables:  
 `r allometr_db$get_data('allometries') %>% pull(dependent_var) %>% unique()`
 
 ---
@@ -733,6 +711,11 @@ para calcular la alometría, podemos subirlo en la pestaña de cálculo y
 seleccionar la alometría que queremos obtener. Los resultados se pueden descargar
 en excel o texto.
 
+.center[
+```{r allometrapp_ex_1, echo=FALSE, out.width=400}
+knitr::include_graphics('img/allometrapp_ex_1.png')
+```
+]
 ---
 layout: false
 class: inverse
@@ -760,13 +743,16 @@ layout: true
 
 # LiDAR
 
-Aqui va una explicación de lo que es LiDAR
+Los vuelos LiDAR usan láseres para crear un mapa 3D de puntos de la superficie a diferentes longitudes
+de onda. Aplicando diferentes modelos a los resultados de las medidas en las diferentes longitudes de onda,
+y calibrando con los valores reales de la vegetación (IFN), podemos desarrollar modelos para obtener
+diferentes variables dasométricas (área basal, altura, biomasa...) de la capa de vegetación.
 
 ---
 
 # Conectarse a la aplicación
 
-http://laboratoriforestal.creaf.uab.cat/allometrapp
+http://laboratoriforestal.creaf.uab.cat/lidarapp
 
 ![](img/lidar_app_init.png)
 
@@ -779,6 +765,28 @@ http://laboratoriforestal.creaf.uab.cat/allometrapp
 Podemos consultar mapas (rásters) con las variables dasométricas calculadas
 a partir de los vuelos LiDAR y calibradas con los datos del Inventario
 Forestal Nacional.
+
+Los datos están disponibles en formato ráster o valores agregados para las diferentes unidades administrativas.
+
+.pull-left[.center[
+```{r lidar_ex_2, echo=FALSE, out.width=400}
+knitr::include_graphics('img/lidar_ex_2.png')
+```
+]]
+
+.pull-right[.center[
+```{r lidar_ex_3, echo=FALSE, out.width=400}
+knitr::include_graphics('img/lidar_ex_3.png')
+```
+]]
+
+---
+layout: false
+class: inverse
+
+.font200[Ejemplo de uso]
+
+Consultar la altura media de los bosques en los municipios de Vic, Vinaixa y Vilaverd
 
 ---
 
@@ -793,8 +801,8 @@ class: thanks clear middle
 
 # `r icon::fontawesome("people-carry")` .font80[Concepto, diseño y programación:]
 
-Víctor Granda (JRU CREAF-CTFC)  
-Miquel de Cáceres (CTFC)  
+Víctor Granda (EMF-CREAF)  
+Miquel de Cáceres (EMF-CREAF)  
 Mireia Banqué (CREAF)  
 Jordi Martínez (CREAF-UAB)  
 Jordi Vayreda (JRU CREAF-CTFC)  
