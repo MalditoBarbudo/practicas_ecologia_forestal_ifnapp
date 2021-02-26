@@ -544,15 +544,15 @@ knitr::include_graphics('img/viz_ex_4.png')
 Podemos hacer click en el mapa para obtener información más detallada
 
 .pull-left[.center[
-de la parcela
-```{r viz_ex_5, echo=FALSE, out.width=400}
+de la parcela  
+```{r viz_ex_5, echo=FALSE, out.width=290}
 knitr::include_graphics('img/viz_ex_5.png')
 ```
 ]]
 
 .pull-right[.center[
-o de los polígonos
-```{r viz_ex_6, echo=FALSE, out.width=400}
+o de los polígonos  
+```{r viz_ex_6, echo=FALSE, out.width=290}
 knitr::include_graphics('img/viz_ex_6.png')
 ```
 ]]
@@ -566,7 +566,7 @@ knitr::include_graphics('img/viz_ex_6.png')
 Los datos seleccionados también se pueden explorar en tablas
 
 .center[
-```{r data_ex_1, echo=FALSE, out.width=850}
+```{r data_ex_1, echo=FALSE, out.width=550}
 knitr::include_graphics('img/data_ex_1.png')
 ```
 ]
@@ -581,13 +581,13 @@ Los datos seleccionados también se pueden explorar en tablas seleccionando las 
 a visualizar y ordenando o filtrando la tabla para permitir una inspección más detallada
 
 .pull-left[.center[
-```{r data_ex_2, echo=FALSE, out.width=400}
+```{r data_ex_2, echo=FALSE, out.width=290}
 knitr::include_graphics('img/data_ex_2.png')
 ```
 ]]
 
 .pull-right[.center[
-```{r data_ex_3, echo=FALSE, out.width=400}
+```{r data_ex_3, echo=FALSE, out.width=200}
 knitr::include_graphics('img/data_ex_3.png')
 ```
 ]]
@@ -601,7 +601,8 @@ knitr::include_graphics('img/data_ex_3.png')
 Finalmente los datos se pueden descargar en texto (`csv`) o en excel (`xlsx`)
 
 .center[
-```{r data_ex_4, echo=FALSE, out.width=300}
+
+```{r data_ex_4, echo=FALSE, out.width=450}
 knitr::include_graphics('img/viz_ex_4.png')
 ```
 ]
@@ -629,9 +630,11 @@ layout: true
 La comparación dasométrica entre los diferentes IFNs permite obtener información adicional
 sobre tasas:
 
-```{r comparision_ex_1, echo=FALSE}
+.center[
+```{r comparision_ex_1, echo=FALSE, out.width=600}
 knitr::include_graphics('img/comparision_ex_1.png')
 ```
+]
 
 ---
 layout: false
@@ -795,7 +798,11 @@ longitudes de onda. Esto permite, mediante el uso de calibraciones y modelado, i
 variables dasométricas e hídricas de la vegetación presente en el terreno.  
 .font60[Image credits: felix.rohrba.ch]
 
-![](img/lidar_flight.jpg)
+.center[
+```{r lidar_plane, echo=FALSE, out.width=500}
+knitr::include_graphics('img/lidar_flight.jpg')
+```
+]
 
 ---
 
@@ -803,7 +810,12 @@ variables dasométricas e hídricas de la vegetación presente en el terreno.
 
 http://laboratoriforestal.creaf.uab.cat/lidarapp
 
-![](img/lidar_app_init.png)
+.center[
+```{r lidar_init, echo=FALSE, out.width=700}
+knitr::include_graphics('img/lidar_app_init.png')
+```
+]
+
 
 ---
 
