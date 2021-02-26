@@ -722,7 +722,44 @@ class: inverse
 
 .font200[Ejemplo de uso]
 
-Calcular Ht a partir de medidas de DBH en *Fagus sylvatica* en Lleida
+Calcular Ht a partir de medidas de DBH en *Fagus sylvatica* en Lleida.
+
+Calcular la altura total para 3 hayas en una parcela experimental en Lleida cuyos
+diámetros (medidos en cm) fueron:  
+
+```{r allomtr_exercise, echo=FALSE}
+tibble(
+  Árbol = c('haya_1', 'haya_2', 'haya_3'),
+  dbh = c(22.5, 15.6, 18.2)
+) %>%
+  gt() %>%
+  tab_style(
+    style = list(
+      cell_text(
+        weight = 'normal', size = 'medium', font = 'Raleway', align = 'center'
+      ),
+      cell_fill(color = '#23373B', alpha = 1),
+      cell_borders(color = '#23373B')
+    ),
+    locations = cells_body(TRUE)
+  ) %>%
+  tab_style(
+    style = list(
+      cell_text(weight = 'normal', font = 'Raleway'),
+      cell_fill(color = '#23373B', alpha = 1),
+      cell_borders(color = '#23373B')
+    ),
+    locations = cells_title('title')
+  ) %>%
+  tab_style(
+    style = list(
+      cell_text(weight = 'normal', size = 'medium', font = 'Raleway'),
+      cell_fill(color = '#23373B', alpha = 1),
+      cell_borders(color = '#23373B')
+    ),
+    locations = cells_column_labels(TRUE)
+  )
+```
 
 ---
 layout: false
@@ -743,10 +780,13 @@ layout: true
 
 # LiDAR
 
-Los vuelos LiDAR usan láseres para crear un mapa 3D de puntos de la superficie a diferentes longitudes
-de onda. Aplicando diferentes modelos a los resultados de las medidas en las diferentes longitudes de onda,
-y calibrando con los valores reales de la vegetación (IFN), podemos desarrollar modelos para obtener
-diferentes variables dasométricas (área basal, altura, biomasa...) de la capa de vegetación.
+LiDAR (Light imaging, detection and ranging) es una técnica que usa pulsos de luz láser
+para medir la luz reflejada por el terreno y el tiempo que tarda en reflejar a diferentes
+longitudes de onda. Esto permite, mediante el uso de calibraciones y modelado, inferir
+variables dasométricas e hídricas de la vegetación presente en el terreno.  
+.font60[Image credits: felix.rohrba.ch]
+
+![](img/lidar_flight.jpg)
 
 ---
 
