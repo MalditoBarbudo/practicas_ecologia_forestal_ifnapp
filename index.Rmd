@@ -2,7 +2,7 @@
 title: "Laboratori Forestal Català"
 subtitle: "Consulta de bases de datos forestales generadas por CREAF y CTFC"
 author: ""
-date: "2021-03-01"
+date: "2022-02-24"
 output:
   xaringan::moon_reader:
     lib_dir: libs
@@ -21,7 +21,7 @@ class: title-slide
 
 ## Consulta de bases de datos forestales generadas por el CREAF y el CTFC
 
-.pull-right[.font80[2021-03-01]]
+.pull-right[.font80[2022-02-24]]
 
 
 ```{r setup, include=FALSE}
@@ -44,6 +44,8 @@ background-image: url("img/lfc_logo.svg")
 
 El LFC es una iniciativa destinada a poner a disposición del público, experto o curioso, la información y los
 datos relacionados con los bosques generados en los proyectos de investigación del CREAF y del CTFC.
+
+.right[https://laboratoriforestal.creaf.cat/]
 
 
 ---
@@ -100,6 +102,15 @@ background-image: url("img/catdrought_app_logo.png")
 .font180[Catdrought app]
 
 Estimaciones diarias del balance hídrico, la humedad del suelo y el estrés hídrico de los bosques de Cataluña.
+
+---
+layout: false
+class: inverse
+background-image: url("img/deboscat_app_logo.png")
+
+.font180[DeBosCat app]
+
+Visualizar y descargar información sobre los episodios de decaimiento forestal en Cataluña relacionados con la sequía.
 
 ---
 
@@ -214,7 +225,7 @@ tibble(
   ) %>%
   tab_style(
     style = cell_text(weight = 'normal', size = 'medium', font = 'Raleway'),
-    locations = cells_column_labels(TRUE)
+    locations = cells_column_labels()
   ) %>%
   tab_style(
     style = cell_text(weight = 'bold', size = 'medium', font = 'Raleway'),
@@ -224,7 +235,7 @@ tibble(
     style = cell_text(
       weight = 'normal', size = 'medium', font = 'Raleway', align = 'center'
     ),
-    locations = cells_body(TRUE)
+    locations = cells_body()
   ) %>%
   tab_style(
     style = cell_text(weight = 'normal', font = 'Raleway'),
@@ -263,7 +274,7 @@ tibble(
   ) %>%
   tab_style(
     style = cell_text(weight = 'normal', size = 'medium', font = 'Raleway'),
-    locations = cells_column_labels(TRUE)
+    locations = cells_column_labels()
   ) %>%
   tab_style(
     style = cell_text(weight = 'bold', size = 'medium', font = 'Raleway'),
@@ -273,7 +284,7 @@ tibble(
     style = cell_text(
       weight = 'normal', size = 'medium', font = 'Raleway', align = 'center'
     ),
-    locations = cells_body(TRUE)
+    locations = cells_body()
   ) %>%
   tab_style(
     style = cell_text(weight = 'normal', font = 'Raleway'),
@@ -317,7 +328,7 @@ tibble(
   ) %>%
   tab_style(
     style = cell_text(weight = 'normal', size = 'medium', font = 'Raleway'),
-    locations = cells_column_labels(TRUE)
+    locations = cells_column_labels()
   ) %>%
   tab_style(
     style = cell_text(weight = 'bold', size = 'medium', font = 'Raleway'),
@@ -329,7 +340,7 @@ tibble(
     style = cell_text(
       weight = 'normal', size = 'medium', font = 'Raleway', align = 'center'
     ),
-    locations = cells_body(TRUE)
+    locations = cells_body()
   ) %>%
   tab_style(
     style = cell_text(weight = 'normal', font = 'Raleway'),
@@ -355,7 +366,7 @@ layout: true
 
 # Conectarse a la aplicación
 
-http://laboratoriforestal.creaf.uab.cat/nfi_app
+http://laboratoriforestal.creaf.cat/nfi_app
 
 ![](img/nfi_app_init.png)
 
@@ -637,219 +648,6 @@ knitr::include_graphics('img/comparision_ex_1.png')
 ]
 
 ---
-layout: false
-class: inverse
-
-.font200[Ejemplo de uso 1]
-
-Especies dominantes en densidad de las parcelas localizadas en Pla de l'Estany para el
-IFN4 y sus valores de área basal y densidad de los pies mayores vivos.
-
----
-layout: false
-class: inverse
-
-.font200[Ejemplo de uso 2]
-
-Averiguar como ha cambiado la densidad media de las hayas en el Vallès Oriental entre el IFN v3 y
-el IFN v4 (balance) y el crecimiento medio en área basal en ese periodo.
-
----
-layout: false
-class: inverse
-background-image: url("img/allometries_app_logo.png")
-
-.font120[Base de datos de alometrías:] .font200[AllometrApp]
-
----
-
-layout: false
-class: inverse
-
-.font200[Conceptos importantes]
-
-.font170[Cubicación]
-
----
-
-layout: true
-
-<div class="tweaked-header" style="background-image: url(img/logos.svg)"></div>
-
-<div class="my-footer"><span>Laboratori Forestal Catalá</span></div>
-
----
-
-# Ecuaciones de cubicación
-
-$$ VCC_{creaf} = \pi · \left(\frac{Dn}{2}\right)^{2} · Ht · Cf $$
-
-Donde:
-
-  - **Dn** es el diámetro normal (diámetro a la altura del pecho) en mm
-  - **Ht** es la altura total del árbol en m
-  - **Cf** es el coficiente de forma del tronco del árbol, en este caso fijado para todos
-    los árboles y especies en 0.441
-
----
-
-# Conectarse a la aplicación
-
-http://laboratoriforestal.creaf.uab.cat/allometrapp
-
-![](img/allometries_app_init.png)
-
----
-
-# Información disponible
-
-## ¿Qué se puede consultar en la AllometrApp?
-
-`r allometr_db$get_data('allometries') %>% nrow()` alometrías para diferentes
-niveles administrativos (comarcas, provincias...) y filogenéticos
-(especies, géneros...).
-
-Dependiendo de las variables de entrada se pueden calcular las siguientes variables:  
-`r allometr_db$get_data('allometries') %>% pull(dependent_var) %>% unique()`
-
----
-
-# Herramientas
-
-## Cálculo
-
-Si disponemos de un archivo excel (o texto) con las medidas que queremos usar
-para calcular la alometría, podemos subirlo en la pestaña de cálculo y 
-seleccionar la alometría que queremos obtener. Los resultados se pueden descargar
-en excel o texto.
-
-.center[
-```{r allometrapp_ex_1, echo=FALSE, out.width=400}
-knitr::include_graphics('img/allometrapp_ex_1.png')
-```
-]
----
-layout: false
-class: inverse
-
-.font200[Ejemplo de uso]
-
-Calcular Ht a partir de medidas de DBH en *Fagus sylvatica* en Lleida.
-
-Calcular la altura total para 3 hayas en una parcela experimental en Lleida cuyos
-diámetros (medidos en cm) fueron:  
-
-```{r allomtr_exercise, echo=FALSE}
-tibble(
-  Árbol = c('haya_1', 'haya_2', 'haya_3'),
-  dbh = c(22.5, 15.6, 18.2)
-) %>%
-  gt() %>%
-  tab_style(
-    style = list(
-      cell_text(
-        weight = 'normal', size = 'medium', font = 'Raleway', align = 'center'
-      ),
-      cell_fill(color = '#23373B', alpha = 1),
-      cell_borders(color = '#23373B')
-    ),
-    locations = cells_body(TRUE)
-  ) %>%
-  tab_style(
-    style = list(
-      cell_text(weight = 'normal', font = 'Raleway'),
-      cell_fill(color = '#23373B', alpha = 1),
-      cell_borders(color = '#23373B')
-    ),
-    locations = cells_title('title')
-  ) %>%
-  tab_style(
-    style = list(
-      cell_text(weight = 'normal', size = 'medium', font = 'Raleway'),
-      cell_fill(color = '#23373B', alpha = 1),
-      cell_borders(color = '#23373B')
-    ),
-    locations = cells_column_labels(TRUE)
-  )
-```
-
----
-layout: false
-class: inverse
-background-image: url("img/lidar_app_logo.png")
-
-.font120[Base de datos LiDAR:] .font200[LiDAR App]
-
----
-
-layout: true
-
-<div class="tweaked-header" style="background-image: url(img/logos.svg)"></div>
-
-<div class="my-footer"><span>Laboratori Forestal Catalá</span></div>
-
----
-
-# LiDAR
-
-LiDAR (Light imaging, detection and ranging) es una técnica que usa pulsos de luz láser
-para medir la luz reflejada por el terreno y el tiempo que tarda en reflejar a diferentes
-longitudes de onda. Esto permite, mediante el uso de calibraciones y modelado, inferir
-variables dasométricas e hídricas de la vegetación presente en el terreno.  
-.font60[Image credits: felix.rohrba.ch]
-
-.center[
-```{r lidar_plane, echo=FALSE, out.width=500}
-knitr::include_graphics('img/lidar_flight.jpg')
-```
-]
-
----
-
-# Conectarse a la aplicación
-
-http://laboratoriforestal.creaf.uab.cat/lidarapp
-
-.center[
-```{r lidar_init, echo=FALSE, out.width=700}
-knitr::include_graphics('img/lidar_app_init.png')
-```
-]
-
-
----
-
-# Información disponible
-
-## ¿Qué se puede consultar en la LiDAR App?
-
-Podemos consultar mapas (rásters) con las variables dasométricas calculadas
-a partir de los vuelos LiDAR y calibradas con los datos del Inventario
-Forestal Nacional.
-
-Los datos están disponibles en formato ráster o valores agregados para las diferentes unidades administrativas.
-
-.pull-left[.center[
-```{r lidar_ex_2, echo=FALSE, out.width=400}
-knitr::include_graphics('img/lidar_ex_2.png')
-```
-]]
-
-.pull-right[.center[
-```{r lidar_ex_3, echo=FALSE, out.width=400}
-knitr::include_graphics('img/lidar_ex_3.png')
-```
-]]
-
----
-layout: false
-class: inverse
-
-.font200[Ejemplo de uso]
-
-Consultar la altura media de los bosques en los municipios de Vic, Vinaixa y Vilaverd
-
----
 
 layout: true
 
@@ -860,7 +658,7 @@ layout: true
 ---
 class: thanks clear middle
 
-# `r icon::fontawesome("people-carry")` .font80[Concepto, diseño y programación:]
+# `r icons::fontawesome("people-carry")` .font80[Concepto, diseño y programación:]
 
 Víctor Granda (EMF-CREAF)  
 Miquel de Cáceres (EMF-CREAF)  
@@ -869,7 +667,7 @@ Jordi Martínez (CREAF-UAB)
 Jordi Vayreda (JRU CREAF-CTFC)  
 
 .center[
-## `r icon::fontawesome("hand-holding-usd")`
+## `r icons::fontawesome("hand-holding-usd")`
 
 ```{r logos_fin, echo=FALSE}
 knitr::include_graphics('img/money.svg')
