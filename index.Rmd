@@ -2,7 +2,7 @@
 title: "Laboratori Forestal Català"
 subtitle: "Consulta de bases de datos forestales generadas por CREAF y CTFC"
 author: ""
-date: "2022-02-24"
+date: "2024-02-28"
 output:
   xaringan::moon_reader:
     lib_dir: libs
@@ -21,7 +21,7 @@ class: title-slide
 
 ## Consulta de bases de datos forestales generadas por el CREAF y el CTFC
 
-.pull-right[.font80[2022-02-24]]
+.pull-right[.font80[2024-02-28]]
 
 
 ```{r setup, include=FALSE}
@@ -31,8 +31,8 @@ library(lfcdata)
 library(gt)
 
 nfi_db <- nfi()
-allometr_db <- allometries()
-lidar_db <- lidar()
+# allometr_db <- allometries()
+# lidar_db <- lidar()
 ```
 
 ---
@@ -99,9 +99,19 @@ layout: false
 class: inverse
 background-image: url("img/catdrought_app_logo.png")
 
-.font180[Catdrought app]
+.font180[CatDrought app]
 
 Estimaciones diarias del balance hídrico, la humedad del suelo y el estrés hídrico de los bosques de Cataluña.
+
+---
+layout: false
+class: inverse
+background-image: url("img/sitedrought_app_logo.png")
+
+.font180[SiteDrought app]
+
+Estimaciones diarias del balance hídrico y el riesgo de incendio en parcelas de
+bosque y matorral en el noreste de la península.
 
 ---
 layout: false
@@ -366,7 +376,7 @@ layout: true
 
 # Conectarse a la aplicación
 
-http://laboratoriforestal.creaf.cat/nfi_app
+https://laboratoriforestal.creaf.cat/nfi_app
 
 ![](img/nfi_app_init.png)
 
@@ -658,7 +668,7 @@ layout: true
 ---
 class: thanks clear middle
 
-# `r icons::fontawesome("people-carry")` .font80[Concepto, diseño y programación:]
+# .font80[Concepto, diseño y programación:]
 
 Víctor Granda (EMF-CREAF)  
 Miquel de Cáceres (EMF-CREAF)  
@@ -667,7 +677,7 @@ Jordi Martínez (CREAF-UAB)
 Jordi Vayreda (JRU CREAF-CTFC)  
 
 .center[
-## `r icons::fontawesome("hand-holding-usd")`
+## Financiación
 
 ```{r logos_fin, echo=FALSE}
 knitr::include_graphics('img/money.svg')
